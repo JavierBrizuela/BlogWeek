@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+  {% block content %}
+  <article class="blog-post">
+    <div class="col-auto d-none d-lg-block">
+        <img class="bd-placeholder-img" width="100%" height="auto" src={{ post.image.url }} preserveAspectRatio="xMidYMid slice" focusable="false">
+    </div>
+    <strong class="d-inline-block mb-2 mt-3 text-primary">{{ post.category }}</strong>
+    <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
+    <p class="blog-post-meta">{{ post.created | date:'d b Y' }} por: <a href="#">{{ post.author }}</a></p>
+
+    <p>{{ post.excerpt }}</p>
+    <hr>
+    <p>{{ post.content | safe }}</p>
+    <hr>
+    <strong>Etiquetas</strong>
+    {% for tag in post.tag.all %}
+    <span class="badge text-bg-info">{{ tag }}</span>
+    {% endfor %}
+    <br>
+  </article> 
+  <div class="justify-content-center">
+    <a class="btn btn-outline-primary rounded-pill " href={% url 'home' %}>Volver al inicio</a>
+  </div>
+  
+  {% endblock %}     

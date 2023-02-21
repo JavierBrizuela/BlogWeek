@@ -1,0 +1,86 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    
+  {% if request.path == '/author/' %}
+    <div class="alert alert-success" role="alert">
+      Estos son todos los post de <strong>AUTOR</strong>
+    </div>
+  {% endif %}
+    
+  {% if request.path == '/category/' %}
+    <div class="alert alert-success" role="alert">
+      Estos son todos los post de <strong>CATEGORIA</strong>
+    </div>
+  {% endif %}
+  
+  {% if request.path == '/date/' %}
+    <div class="alert alert-success" role="alert">
+      Estos son todos los post de <strong>FECHA</strong>
+    </div>
+  {% endif %}
+  {% if request.path == '/' %}
+    {% for post in posts %}  
+      {% if forloop.first and posts.number == 1 %}
+          <div class="p-4 p-md-4 mb-4 rounded text-bg-dark">
+            <div class="col-md-12 px-0">
+            <h1 class="display-4 fst-italic text-secondary ">{{ post.title }}</h1>
+            <p class="lead my-3">{{ post.excerpt }}</p>
+            <p class="lead mb-0"><a href={% url 'post' post.id %} class="text-white fw-bold">Seguir leyendo...</a></p>
+            </div>
+          </div>
+      {% else %}
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="object-fit-cover col-auto d-none d-lg-block">
+            <img src={{ post.image.url }} width="300" height="250"  class="img-fluid rounded-start " alt="...">          
+          </div>
+        
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>
+            <h3 class="mb-0">{{ post.title }}</h3>
+            <div class="mb-1 text-muted">{{ post.created | date:'d b y'}}</div>
+            <p class="card-text mb-auto">{{ post.excerpt }}</p>
+            <a href={% url 'post' post.id %} class="stretched-link">Seguir leyendo</a>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}  
+  {% endif %}
+  
+  <hr>
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      <li class="page-item {% if posts.number == 1 %}disabled{% endif %}">
+        <a class="page-link" href="?page=1">Primera</a>
+      </li>
+      
+      <li class="page-item {% if posts.number == 1 %}disabled{% endif %}">
+        {% if posts.number != 1 %}
+        <a class="page-link" href="?page={{ posts.previous_page_number }}">
+          {{ posts.previous_page_number }}
+        </a>
+        {% endif %}
+      </li>
+      
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" >{{ posts.number }}</a>
+      </li>
+        {% if posts.number != posts.paginator.num_pages %}
+        <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled{% endif %}">
+          <a class="page-link" href="?page={{ posts.next_page_number }}">
+            {{ posts.next_page_number }}
+          </a>
+        </li>
+        {% endif %}
+      <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled{% endif %}">
+        <a class="page-link" href="?page={{ posts.paginator.num_pages }}">Ultima</a>
+      </li>
+    </ul>
+  </nav>
+  <hr>
+    
+  {% if request.path != '/' %}
+    <a class="btn btn-outline-primary rounded-pill" href={% url 'home' %}>Volver al inicio</a>
+  {% endif %}
+
+  {% endblock %}

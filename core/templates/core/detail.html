@@ -4,9 +4,9 @@
     <div class="col-auto d-none d-lg-block">
         <img class="bd-placeholder-img" width="100%" height="auto" src={{ post.image.url }} preserveAspectRatio="xMidYMid slice" focusable="false">
     </div>
-    <strong class="d-inline-block mb-2 mt-3 text-primary">{{ post.category }}</strong>
+    <strong class="d-inline-block mb-2 mt-3 text-primary"><a href={% url 'category' post.category.id %}>{{ post.category }}</a></strong>
     <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
-    <p class="blog-post-meta">{{ post.created | date:'d b Y' }} por: <a href="#">{{ post.author }}</a></p>
+    <p class="blog-post-meta">{{ post.created | date:'d b Y' }} por: <a href={% url 'author' post.author.id %}>{{ post.author }}</a></p>
 
     <p>{{ post.excerpt }}</p>
     <hr>

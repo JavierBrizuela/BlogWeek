@@ -41,9 +41,9 @@ class Post(models.Model):
     created = models.DateField(auto_now_add=True, verbose_name='Fecha de creacion')
     updated = models.DateField(auto_now_add=True, null=True, blank=True, verbose_name='Fecha de actualizacion')
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoria')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='get_posts', verbose_name='Categoria')
     tag = models.ManyToManyField(Tag, verbose_name='Etiqueta')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Autor')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='get_posts', verbose_name='Autor')
 
     class Meta:
         verbose_name = 'Publicacion'

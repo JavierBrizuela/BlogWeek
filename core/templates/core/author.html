@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="alert alert-success" role="alert">
+        Estos son todos los post del autor <strong>{{ author.first_name }}, {{ author.last_name }}</strong>
+    </div>
+    {% for post in author.get_posts.all %}  
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="object-fit-cover col-auto d-none d-lg-block">
+          <img src={{ post.image.url }} width="300" height="250"  class="img-fluid rounded-start " alt="...">          
+        </div>
+      
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>
+          <h3 class="mb-0">{{ post.title }}</h3>
+          <div class="mb-1 text-muted">{{ post.created | date:'d b y'}}</div>
+          <p class="card-text mb-auto">{{ post.excerpt }}</p>
+          <a href={% url 'post' post.id %} class="stretched-link">Seguir leyendo</a>
+        </div>
+      </div>
+    {% endfor %}  
+{% endblock %}

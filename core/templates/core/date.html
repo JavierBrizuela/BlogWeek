@@ -1,9 +1,9 @@
 {% extends 'core/base.html' %}
 {% block content %}
     <div class="alert alert-success" role="alert">
-        Estos son todos los post del autor <strong>{{ author.first_name }}, {{ author.last_name }}</strong>
+        Estos son todos los post publicados en <strong>{{ fecha | date:'M Y'}}</strong>
     </div>
-    {% for post in author.get_posts.all %}  
+    {% for post in posts %}  
     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-300 position-relative">
       <div class="object-fit-cover col-auto d-none d-lg-block">
         <img src={{ post.image.url }} width="300" height="250"  class="img-fluid rounded-start " alt="...">          
@@ -17,5 +17,5 @@
         <a href={% url 'post' post.id %} class="stretched-link">Seguir leyendo</a>
       </div>
     </div>
-    {% endfor %}  
+    {% endfor %} 
 {% endblock %}

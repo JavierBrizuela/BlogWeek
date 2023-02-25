@@ -1,4 +1,4 @@
-from .models import About, Category, Link
+from .models import About, Category, Link, Post
 
 #about
 def ctx_dic_about(request):
@@ -23,3 +23,8 @@ def ctx_dic_link(request):
             links_ctx[link.key]= {'url':link.url, 'icon':link.icon, 'name':link.name} """
     
     return links_ctx
+
+def ctx_dic_history(request):
+    ctx_history = {}
+    ctx_history['dates'] = Post.objects.dates('created', 'month', order='DESC').distinct()
+    return ctx_history

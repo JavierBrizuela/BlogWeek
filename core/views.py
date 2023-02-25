@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Post, Category
 from django.contrib.auth.models import User
-
+import datetime
 def home(request):
     post_page = Paginator(Post.objects.filter(published=True), 3)
     page = request.GET.get('page')
@@ -32,5 +32,7 @@ def category(request, category_id):
     except:
         return render(request, 'core/404.html')
 
-def date(request):
-    return render(request, 'core/home.html')
+def date(request, month_id, year_id):
+        posts = Post.objects.filter(published=True, created__month=month_id, created__year=year_id)
+        fecha = datetime.date(year_id, month_id, 1)
+        return render(request, 'core/date.html', {'posts':posts,'fecha':fecha})

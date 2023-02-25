@@ -14,7 +14,7 @@
     <hr>
     <strong>Etiquetas</strong>
     {% for tag in post.tag.all %}
-    <span class="badge text-bg-info">{{ tag }}</span>
+    <span class="badge text-bg-info">{{ tag | upper }}</span>
     {% endfor %}
     <br>
   </article> 

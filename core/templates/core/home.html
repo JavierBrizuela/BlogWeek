@@ -2,8 +2,8 @@
 
 {% block content %}
   {% if request.path == '/' %}
-    {% for post in posts %}  
-      {% if forloop.first and posts.number == 1 %}
+    {% for post in post_list %}  
+      {% if forloop.first and page_obj.number == 1 %}
           <div class="p-4 p-md-4 mb-4 rounded text-bg-dark">
             <div class="col-md-12 px-0">
             <h1 class="display-4 fst-italic text-secondary ">{{ post.title }}</h1>
@@ -30,40 +30,36 @@
   {% endif %}
   
   <hr>
-  
+  <!-- barra paginacion -->
   <nav aria-label="...">
     <ul class="pagination justify-content-center">
-      <li class="page-item {% if posts.number == 1 %}disabled{% endif %}">
+      <li class="page-item {% if page_obj.number == 1 %}disabled{% endif %}">
         <a class="page-link" href="?page=1">Primera</a>
       </li>
       
       <li class="page-item {% if posts.number == 1 %}disabled{% endif %}">
-        {% if posts.number != 1 %}
-        <a class="page-link" href="?page={{ posts.previous_page_number }}">
-          {{ posts.previous_page_number }}
+        {% if page_obj.has_previous %}
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+          {{ page_obj.previous_page_number }}
         </a>
         {% endif %}
       </li>
       
       <li class="page-item active" aria-current="page">
-        <a class="page-link" >{{ posts.number }}</a>
+        <a class="page-link" >{{ page_obj.number }}</a>
       </li>
-        {% if posts.number != posts.paginator.num_pages %}
-        <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled{% endif %}">
-          <a class="page-link" href="?page={{ posts.next_page_number }}">
-            {{ posts.next_page_number }}
+
+        {% if page_obj.has_next %}
+        <li class="page-item ">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+            {{ page_obj.next_page_number }}
           </a>
         </li>
         {% endif %}
-      <li class="page-item {% if posts.number == posts.paginator.num_pages %}disabled{% endif %}">
-        <a class="page-link" href="?page={{ posts.paginator.num_pages }}">Ultima</a>
+      <li class="page-item {% if page_obj.number == page_obj.paginator.num_pages %}disabled{% endif %}">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Ultima</a>
       </li>
     </ul>
   </nav>
-  <hr>
-    
-  {% if request.path != '/' %}
-    <a class="btn btn-outline-primary rounded-pill" href={% url 'home' %}>Volver al inicio</a>
-  {% endif %}
-
+  <hr>  
   {% endblock %}

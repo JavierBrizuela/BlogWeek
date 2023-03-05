@@ -1,0 +1,20 @@
+
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="mb-5 text-center">
+        <form action="" method="post" >
+            {% csrf_token %}
+            <div class="card text-bg-danger mb-3 mx-auto" style="max-width: 18rem;">
+                <div class="card-header">CONFIRMAR ACCION</div>
+                <div class="card-body">
+                  <h5 class="card-title">Eliminar post</h5>
+                  <p class="card-text">Esta seguro que quierre eleminar el post titulado "<strong>{{ post.title }}</strong>"</p>
+                  <div class="text-center">
+                    <input class="btn btn-lg btn-light" type="submit" value="Si, Borrar el post">
+                  </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+{% endblock %}

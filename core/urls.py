@@ -2,9 +2,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('post/<int:post_id>', views.post, name='post'),
-    path('author/<int:author_id>', views.author, name='author'),
-    path('category/<int:category_id>', views.category, name='category'),
-    path('date/<int:month_id>/<int:year_id>', views.date, name='date'),
+    path('', views.PostListView.as_view(), name='home'),
+    path('post/<pk>', views.PostDetailViews.as_view(), name='post'),
+    path('author/', views.AuthorListView.as_view(), name='author'),
+    path('category/', views.CategoryListView.as_view(), name='category'),
+    path('date/', views.DateListView.as_view(), name='date'),
+    path('create/', views.PostCreateView.as_view(), name='create'),
+    path('update/<pk>', views.PostUpdateview.as_view(), name='update'),
+    path('delete/<pk>', views.PostDeleteView.as_view(), name='delete'),
 ]

@@ -1,9 +1,11 @@
 {% extends 'core/base.html' %}
 {% block content %}
+    {% if post_list %}
     <div class="alert alert-success" role="alert">
         Estos son todos los post de la categoria <strong>{{ category.name }}</strong>
     </div>
-    {% for post in category.get_posts.all %}  
+    {% endif %}
+    {% for post in post_list %}  
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-300 position-relative">
         <div class="object-fit-cover col-auto d-none d-lg-block">
           <img src={{ post.image.url }} width="300" height="250"  class="img-fluid rounded-start " alt="...">          
@@ -22,4 +24,7 @@
         <strong>No existen publicaciones en la categoria {{ category.name }}</strong>
       </div>
     {% endfor %}  
+    <div class="justify-content-center">
+      <a class="btn btn-outline-primary rounded-pill " href={% url 'home' %}>Volver al inicio</a>
+    </div>
 {% endblock %}

@@ -8,6 +8,9 @@
     {% load static %}
     <link href={% static 'core/css/bootstrap.min.css' %} rel="stylesheet">
     <link href={% static 'core/css/blog.css' %} rel="stylesheet">
+    <!--ckeditor-->
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <!--Style icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Custom styles for this template -->
@@ -16,12 +19,7 @@
 <body>
   
     <header class="container mb-2">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-            <a class="navbar-brand d-flex text-decoration-none" href={% url 'home' %}>
-                <img class="bi me-2" width="40" height="32" src={% static "core/img/blogger-icon.png" %}>Blog Semanal</a>
-            </div>
-        </nav>
+      {% include 'core/menu.html' %}
     </header>
     
     <main class="container">
@@ -41,7 +39,7 @@
                         <h4 class="fst-italic">Categorias</h4>
                         <ol class="list-unstyled mb-0">
                           {% for item in categories %}
-                            <li><a href={% url 'category' item.id %}>{{ item.name }}</a></li>
+                            <li><a href={% url 'category' %}?cat={{ item.id }}>{{ item.name }}</a></li>
                           {% endfor %}
                         </ol>
                     </div>
@@ -49,7 +47,7 @@
                       <h4 class="fst-italic">Archivos</h4>
                       <ol class="list-unstyled mb-0">
                         {% for date in dates %}
-                        <li><a href={% url 'date' date.month date.year %}>{{ date | date:'M Y' }}</a></li>
+                        <li><a href={% url 'date' %}?month={{ date.month }}/?year={{ date.year }}>{{ date | date:'M Y' }}</a></li>
                         {% endfor %}
                       </ol>
                     </div>

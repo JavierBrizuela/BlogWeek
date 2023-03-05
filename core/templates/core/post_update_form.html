@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h2>Actualizar post</h2>
+    {% if 'ok' in request.GET %}
+    <div class="alert alert-success" role="alert">
+        El post se actualizo correctamente
+        <a href={% url 'post' post.id %} class="btn btn-sm btn-success">Ver post</a>
+    </div>
+    {% endif %}
+    <div class="mb-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center">
+                <input class="btn btn-lg btn-warning rounded-pill" type="submit" value="Actualizar post">
+            </div>
+        </form>
+    </div>
+{% endblock %}

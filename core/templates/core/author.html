@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% block content %}
+  {% if post_list %}
     <div class="alert alert-success" role="alert">
         Estos son todos los post del autor <strong>{{ author.first_name }}, {{ author.last_name }}</strong>
     </div>
@@ -18,4 +19,10 @@
       </div>
     </div>
     {% endfor %}  
+  {% else %}
+    <div class="alert alert-danger" role="alert">
+      <strong>{{ author.first_name }}, {{ author.last_name }}</strong>
+       no tiene post publicados
+    </div>
+  {% endif %}
 {% endblock %}

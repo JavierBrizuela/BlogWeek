@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-  {% if request.path == '/' %}
+  {% if post_list %}
     {% for post in post_list %}  
       {% if forloop.first and page_obj.number == 1 %}
           <div class="p-4 p-md-4 mb-4 rounded text-bg-dark">
@@ -27,6 +27,10 @@
         </div>
       {% endif %}
     {% endfor %}  
+  {% else %}
+    <div class="alert alert-danger" role="alert">
+      No hay post en el Blog 
+    </div>
   {% endif %}
   
   <hr>

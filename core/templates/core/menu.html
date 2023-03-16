@@ -1,26 +1,37 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href={% url 'home' %}>
-        <img class="bi me-2" width="40" height="32" src={% static "core/img/blogger-icon.png" %}>
-        Blog Semanal</a>
-      {% if request.user.is_staff %}
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Acciones</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href={% url 'create' %}>Crear post</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href={% url 'home' %}>Listar post</a>
-          </li> -->
-        </ul>
-        <div class="navbar-nav mb-2 mb-lg-0 ">
-            <a class="nav-link float-end" href="#">{{ request.user.username }}</a>
-        </div>
+  <div class="container mb-2">
+    <a class="navbar-brand" href={% url 'home' %}>
+      <img width="40" height="32" src={% static "core/img/blogger-icon.png" %}>
+      Blog Semanal</a>
+    {% if request.user.is_staff %}
+    <div class="btn-group" >
+      <div class="btn btn-light ">
+        <a class="nav-link" href="{% url 'create' %}">Crear post</a>
       </div>
-      {% endif %}
+      <div class="btn btn-light ">
+        <a class="nav-link" href="{% url 'author' user.id %}">Mis post</a>
+      </div>
+    </div> 
+    {% endif %}
+    {% if request.user.is_staff %}
+    <div class="dropdown float-end">
+      <a class="btn btn-secondary dropdown-toggle" href={% url 'login' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle" style="font-size: 1.2em;"></i> {{ request.user.username }}
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Logout</a></li>
+      </ul>
     </div>
-  </nav>
+    {% else %}
+    <div class="dropdown float-end">
+      <a class="btn btn-secondary dropdown-toggle" href={% url 'login' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle" style="font-size: 1.2em;"></i> Login
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Registrarse</a></li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</nav>

@@ -32,4 +32,4 @@ En la carpeta del proyecto
 
     python manage.py runserver
 
-<img src="https://user-images.githubusercontent.com/96395154/222982672-5d96fa62-35db-4943-b4e2-47ef040254c2.png" alt="captura BlogWeek" height='320'> 
+<img src="https://user-images.githubusercontent.com/96395154/226135258-6497fb7d-f456-402a-8285-7f08f7797ac7.PNG" alt="captura BlogWeek" height='320'> 

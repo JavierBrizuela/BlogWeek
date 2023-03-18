@@ -61,7 +61,7 @@ class About(models.Model):
     class Meta:
         verbose_name = 'Acerca de'
         verbose_name_plural = 'Acerca de nosotros'
-        ordering = ['description',]
+        ordering = ['created',]
     
     def __str__(self):
         return self.description

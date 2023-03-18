@@ -4,7 +4,7 @@
     <a class="navbar-brand" href={% url 'home' %}>
       <img width="40" height="32" src={% static "core/img/blogger-icon.png" %}>
       Blog Semanal</a>
-    {% if request.user.is_staff %}
+    {% if request.user.is_authenticated %}
     <div class="btn-group" >
       <div class="btn btn-light ">
         <a class="nav-link" href="{% url 'create' %}">Crear post</a>
@@ -14,22 +14,24 @@
       </div>
     </div> 
     {% endif %}
-    {% if request.user.is_staff %}
+    {% if request.user.is_authenticated %}
     <div class="dropdown float-end">
-      <a class="btn btn-secondary dropdown-toggle" href={% url 'login' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-person-circle" style="font-size: 1.2em;"></i> {{ request.user.username }}
-      </a>
+      </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Logout</a></li>
+        <li><a class="dropdown-item" href={% url 'profile' user.id %}>Perfil</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
       </ul>
     </div>
     {% else %}
     <div class="dropdown float-end">
-      <a class="btn btn-secondary dropdown-toggle" href={% url 'login' %} role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-person-circle" style="font-size: 1.2em;"></i> Login
-      </a>
+      <button class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle" style="font-size: 1.2em;"></i> 
+      </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Registrarse</a></li>
+        <li><a class="dropdown-item" href={% url 'login' %}>Login</a></li>
+        <li><a class="dropdown-item" href={% url 'register' %}>Registrarse</a></li>
       </ul>
     </div>
     {% endif %}

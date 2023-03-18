@@ -2,35 +2,41 @@
 
 {% block content %}
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<div class="alert alert-danger" role="alert">
+  Su usuario o contraseña no coinciden. Porfavor intentelo nuevamente.
+</div>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>Su cuenta no tiene acceso a esta pagina. para acerlo,
+    porfavor inicie con una cuenta que tenga acceso.</p>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Por favor inicie sesion para poder ver la pagina.</p>
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-  <div>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
+<div class="container card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Inicio de sesion</h5>
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    
+        <div class="mt-2">
+          <td>Usuario:</td>
+          <td class="text-align-right">{{ form.username }}</td>
+        </div>
+        <div class="mt-2">
+          <td>{{ form.password.label_tag }}</td>
+          <td class="text-align-right">{{ form.password }}</td>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Iniciar</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">Olvido la contraseña?</a></p>
+    
+  </form>
   </div>
-  <div>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-  </div>
+</div>
 
-  <div>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </div>
-</form>
-
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 {% endblock %}

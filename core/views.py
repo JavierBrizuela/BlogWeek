@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from .forms import PostForm
-from .models import Post, Category, About
+from .forms import PostForm, RegisterForm
+from .models import Post, Category
 from django.contrib.auth.models import User
 import datetime
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, TemplateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class PostListView(ListView):
     model = Post
@@ -68,6 +70,7 @@ class DateListView(ListView):
 class AboutTemplateView(TemplateView):
     template_name = 'core/abouts.html'
 
+@method_decorator(login_required, name='dispatch')
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
@@ -76,6 +79,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
     success_url = reverse_lazy('home')
 
+@method_decorator(login_required, name='dispatch')
 class PostUpdateview(UpdateView):
     model = Post
     form_class = PostForm
@@ -88,6 +92,19 @@ class PostUpdateview(UpdateView):
     def get_success_url(self):
         return reverse_lazy('update', args=[self.object.id]) + '?ok'
 
+@method_decorator(login_required, name='dispatch')
 class PostDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy('home')
+
+class RegisterUser(CreateView):
+    model = User
+    template_name = 'registration/register.html'
+    form_class = RegisterForm
+    success_url = reverse_lazy('home')
+
+@method_decorator(login_required, name='dispatch')
+class ProfileDetailView(DetailView):
+    model = User
+    form_class = RegisterForm
+    template_name = 'registration/profile.html'

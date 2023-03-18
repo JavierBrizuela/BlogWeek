@@ -35,7 +35,8 @@
                       <h4 class="fst-italic">Categorias</h4>
                       <ol class="list-unstyled mb-0">
                         {% for item in categories %}
-                          <li><a href={% url 'category' item.id %}>{{ item.name }}</a></li>
+                          <li><a href={% url 'category' item.id %} class="text-decoration-none">
+                          {{ item.name }}</a></li>
                         {% endfor %}
                       </ol>
                   </div>
@@ -43,7 +44,8 @@
                     <h4 class="fst-italic">Archivos</h4>
                     <ol class="list-unstyled mb-0">
                       {% for date in dates %}
-                      <li><a href={% url 'date' date.month date.year %}>{{ date | date:'M Y' }}</a></li>
+                      <li><a href={% url 'date' date.month date.year %} class="text-decoration-none ">
+                        {{ date | date:'M Y' }}</a></li>
                       {% endfor %}
                     </ol>
                   </div>
@@ -53,13 +55,14 @@
                     <ol class="list-unstyled">
                       
                       {% for item in links %}
-                      <li><a href={{ item.url }}><i class="{{ item.icon }}"></i>  {{ item.name }}</a></li>
+                      <li><a href={{ item.url }} class="text-decoration-none">
+                        <i class="{{ item.icon }}"></i>  {{ item.name }}</a></li>
                       {% endfor %}
                                               
                     </ol>
                   </div>
                   <div class="p-4 mb-3 bg-dark bg-opacity-10 rounded">
-                    <a href={% url 'abouts' %}>
+                    <a href={% url 'abouts' %} class="text-decoration-none">
                     <h4 class="fst-italic">Acerca nuestro</h4>
                     </a>
                   </div>

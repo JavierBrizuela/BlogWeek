@@ -12,4 +12,6 @@ urlpatterns = [
     path('delete/<pk>', views.PostDeleteView.as_view(), name='delete'),
     path('abouts/', views.AboutTemplateView.as_view(),name='abouts'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/',views.RegisterUser.as_view(), name='register'),
+    path('profile/<pk>', views.ProfileDetailView.as_view(), name='profile')
 ]

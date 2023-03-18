@@ -1,8 +1,14 @@
 {% extends 'core/base.html' %}
 {% block content %}
+    {% if post_list %}
     <div class="alert alert-success" role="alert">
         Estos son todos los post publicados en <strong>{{ date | date:'M Y'}}</strong>
     </div>
+    {% else %}
+    <div class="alert alert-danger" role="alert">
+      No existe post publicados en <strong>{{ date | date:'M Y'}}</strong>
+  </div>
+    {% endif %}
     {% for post in post_list %}  
     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-300 position-relative">
       <div class="object-fit-cover col-auto d-none d-lg-block">
